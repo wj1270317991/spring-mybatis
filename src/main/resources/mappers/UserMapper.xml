@@ -7,9 +7,15 @@
       <arg column="name" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
+
   <insert id="insert" parameterType="com.mybatis.mybatistest.model.User">
     insert into user (id, name)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
   </insert>
 
+  <update id="batchUpdate">
+      <foreach collection="list" item="item" separator=";">
+          update `user` set `name` = #{item.name} where `id` = #{item.id}
+      </foreach>
+  </update>
 </mapper>
